@@ -34,7 +34,7 @@ ionicApp.controller('myCtrl', function($scope , $cordovaVibration, $cordovaMedia
       }*/
 
       start++;
-      $(".vbutt").html(start +"");
+      $(".dacount").html(start +"");
       if(start==hi){
         if(trip>0)
           return;//dont interfere with the alert process if its in the middle of intervals
