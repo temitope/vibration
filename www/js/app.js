@@ -18,12 +18,47 @@ ionicApp.run(function($ionicPlatform) {
   });
 });
 
-ionicApp.controller('myCtrl', function($scope , $cordovaVibration){
+var hi = 5;
+var start = 0;
+ionicApp.controller('myCtrl', function($scope , $cordovaVibration, $cordovaMedia){
 
-
+    //var media = $cordovaMedia.newMedia(src, null, null, null);
     $scope.toggle = function(){
+      //var src= "beep.wav";
+      /*var mediaStatusCallback = function(status) {
+        if(status == 1) {
+            $ionicLoading.show({template: 'Loading...'});
+        } else {
+            $ionicLoading.hide();
+        }
+      }*/
 
-      $cordovaVibration.vibrate(2000);
+      start++;
+      $(".vbutt").html(start +"");
+      if(start==hi){
+        if(trip>0)
+          return;//dont interfere with the alert process if its in the middle of intervals
+        
+        start=0;
+        var trip = 0;
+
+        $cordovaVibration.vibrate(500);//vibrate off bat, then 2 more will come
+        //media.play();
+        var trip_interval = setInterval(function(){
+            if(trip<2){
+              $cordovaVibration.vibrate(500);
+              trip++;
+            }else{
+              clearInterval(trip_interval);
+              trip=0;
+            }
+        }, 1000);  
+      }else if(start<hi){
+          
+          $cordovaVibration.vibrate(500);
+      }
+      
+
     }
 
 });
