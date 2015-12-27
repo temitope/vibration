@@ -18,6 +18,7 @@
     "org.apache.cordova.vibration",
     "cordova-plugin-vibration",
     "cordova-plugin-media",
-    "cordova-plugin-console"
+    "cordova-plugin-console",
+    "cordova-plugin-device"
   ]
 }
