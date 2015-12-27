@@ -18,20 +18,28 @@ ionicApp.run(function($ionicPlatform) {
   });
 });
 
-var hi = 5;
+var hi = 14;
 var start = 0;
 ionicApp.controller('myCtrl', function($scope , $cordovaVibration, $cordovaMedia){
-
-    //var media = $cordovaMedia.newMedia(src, null, null, null);
-    $scope.toggle = function(){
-      //var src= "beep.wav";
-      /*var mediaStatusCallback = function(status) {
+    var mediaStatusCallback = function(status) {
         if(status == 1) {
             $ionicLoading.show({template: 'Loading...'});
         } else {
             $ionicLoading.hide();
         }
-      }*/
+    }
+    var src= "beep.wav";
+    console.log(src);
+    console.log(JSON.stringify($cordovaMedia));
+    var media;
+    try{
+      media = new Media(src, null, null, mediaStatusCallback);
+    }catch(ex){
+      console.log("error " + ex);
+    }
+    $scope.toggle = function(){
+      
+      
 
       start++;
       $(".dacount").html(start +"");
