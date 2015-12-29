@@ -16,9 +16,14 @@
   },
   "cordovaPlugins": [
     "org.apache.cordova.vibration",
-    "cordova-plugin-vibration",
     "cordova-plugin-media",
     "cordova-plugin-console",
-    "cordova-plugin-device"
+    "cordova-plugin-device",
+    "cordova-plugin-vibration",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    "android"
   ]
 }

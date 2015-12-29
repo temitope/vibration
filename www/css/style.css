@@ -1,5 +1,21 @@
 /* Empty. Add your own CSS if you like */
-.vbutt{
+
+/*take care of an inner wrapper inside ion-content item*/
+.scroll { height: 100%;}
+.universe{
+	background-image: url('../img/aum_circle.png');
+	background-size: 100% 100%;	
+}
+.micontent{
+	height:100%;
 	width:100%;
-	height:480px;
+	background-color: rgba(255,255,255,0.9);	
+}
+i.setico{
+	font-size:1.75em;
+}
+.dacount{
+	float:right;
+	font-size:3em;
+	margin-right:10px;
 }

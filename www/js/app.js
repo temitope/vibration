@@ -9,6 +9,7 @@ var src= "beep.wav";
 ionicApp.run(function($ionicPlatform) {
   
   $ionicPlatform.ready(function() {
+    
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -17,43 +18,59 @@ ionicApp.run(function($ionicPlatform) {
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-
+    
+    //setup sound stuff
+    /*var mediaStatusCallback = function(status) {
+        if(status == 1) {
+            $ionicLoading.show({template: 'Loading...'});
+        } else {
+            $ionicLoading.hide();
+        }
+    }*/
+    if (device.platform == 'Android') {
+        src = '/android_asset/www/' + src;  // Android needs the search path explicitly specified
+    }
+    console.log(src);
+    try{
+      media = new Media(src, null, null, null);
+    }catch(ex){
+      console.log("error " + ex);
+    }
 
   });
 });
 
 var hi = 14;
 var start = 0;
-ionicApp.controller('myCtrl', function($scope , $cordovaVibration, $cordovaMedia, $cordovaDevice){
+
+ionicApp.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('page1', {
+    url: '/1',
+    templateUrl: 'page1.html',
+    controller : "MyCtrl"
+  })
+  .state('page2', {
+    url: '/2',
+    templateUrl: 'page2.html'
+  })
+  
+  $urlRouterProvider.otherwise("/1");
+});
+
+ionicApp.controller('MyCtrl', function($scope , $cordovaVibration, $cordovaMedia, $cordovaDevice){
     
     $scope.toggle = function(){
-          /*var mediaStatusCallback = function(status) {
-              if(status == 1) {
-                  $ionicLoading.show({template: 'Loading...'});
-              } else {
-                  $ionicLoading.hide();
-              }
-          }*/
-          //if (device.platform == 'Android') {
-           //   src = '/android_asset/www/' + src;  // Android needs the search path explicitly specified
-          //}
-          console.log(src);
-          console.log(JSON.stringify($cordovaMedia));
           
-          try{
-            media = new Media(src, null, null, null);
-          }catch(ex){
-            console.log("error " + ex);
-          }
       
 
       start++;
       $(".dacount").html(start +"");
-      if(start==hi){
+      if(start % hi == 0){
         if(trip>0)
           return;//dont interfere with the alert process if its in the middle of intervals
         
-        start=0;
+        //start=0;
         var trip = 0;
 
         $cordovaVibration.vibrate(500);//vibrate off bat, then 2 more will come
@@ -70,7 +87,7 @@ ionicApp.controller('myCtrl', function($scope , $cordovaVibration, $cordovaMedia
               trip=0;
             }
         }, 1000);  
-      }else if(start<hi){
+      }else{//} if(start<hi){
           
           $cordovaVibration.vibrate(500);
       }
