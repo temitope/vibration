@@ -19,6 +19,7 @@
     <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
+
     <!-- your app's js -->
     <script src="js/jquery.js"></script>
     <script src="js/app.js"></script>
@@ -33,7 +34,7 @@
   <script id="page1.html" type="text/ng-template">
     <ion-view title="Meditation Counter">
           <ion-nav-buttons side="secondary">
-            <button class="button larger" ui-sref="page2">
+            <button class="button" ui-sref="page2">
               <i class="setico larger ion-settings"></i>
             </button>
           </ion-nav-buttons>
@@ -46,48 +47,44 @@
   </script>
     <script id="page2.html" type="text/ng-template">
     <ion-view title="Settings">
-      <ion-content class="has-header">
-
+      <ion-content class="">
+    
+        <button class="button button-balanced button-full" ng-click="resetcounter()">
+          Reset Counter
+        </button>
         <ul class="list">
 
           <label class="item item-input item-label">
-            <span class="input-label">Hours per week</span>
-            <input type="text" value="37.5">
+            <span class="input-label">Cycle Size</span>
+            <input type="tel" value="3">
           </label>
 
-          <label class="item item-input item-label">
-            <span class="input-label">Days per week</span>
-            <input type="text" value="5">
-          </label>
-
-          <label class="item item-input item-label">
-            <span class="input-label">Pension Contribution</span>
-            <input type="text">
-          </label>
 
           <label class="item item-input item-select">
             <div class="input-label">
-              Age
+              Cycle Notification
             </div>
             <select>
-              <option selected>Under 65</option>
-              <option>65-74</option>
-              <option>75+</option>
+              <option selected>Silent</option>
+              <option>Vibrate (x3)</option>
+              <option>Chime (x3)</option>
+              <option>Vibrate & Chime</option>
             </select>
           </label>
 
           <label class="item item-input item-select">
             <div class="input-label">
-              Weeks Option
+              Interval Notification
             </div>
             <select>
-              <option selected>Weekly</option>
-              <option>2 Weeks</option>
-              <option>4 Weeks</option>
+              <option selected>Silent</option>
+              <option>Vibrate</option>
+              <option>Chime</option>
+             
             </select>
           </label>
 
-              <li class="item item-toggle">
+          <!-- li class="item item-toggle">
              National Insurance
              <label class="toggle toggle-positive">
                <input type="checkbox" value="on">
@@ -95,37 +92,9 @@
                  <div class="handle"></div>
                </div>
              </label>
-          </li>
+          </li /-->
 
-          <li class="item item-toggle">
-             Student Loan
-             <label class="toggle toggle-positive">
-               <input type="checkbox">
-               <div class="track">
-                 <div class="handle"></div>
-               </div>
-             </label>
-          </li>
-
-           <li class="item item-toggle">
-             Registered Blind
-             <label class="toggle toggle-positive">
-               <input type="checkbox">
-               <div class="track">
-                 <div class="handle"></div>
-               </div>
-             </label>
-          </li>
-
-              <li class="item item-toggle">
-             Married
-             <label class="toggle toggle-positive">
-               <input type="checkbox">
-               <div class="track">
-                 <div class="handle"></div>
-               </div>
-             </label>
-          </li>
+        
 
       </ul>
 

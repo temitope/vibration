@@ -3,7 +3,7 @@
 /*take care of an inner wrapper inside ion-content item*/
 .scroll { height: 100%;}
 .universe{
-	background-image: url('../img/aum_circle.png');
+	background-image: url('../img/all_religions2.png');
 	background-size: 100% 100%;	
 }
 .micontent{
@@ -18,4 +18,7 @@ i.setico{
 	float:right;
 	font-size:3em;
 	margin-right:10px;
+}
+input[type="tel"]{
+	text-align:right;
 }

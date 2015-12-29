@@ -40,7 +40,7 @@ ionicApp.run(function($ionicPlatform) {
   });
 });
 
-var hi = 14;
+var hi = 3;
 var start = 0;
 
 ionicApp.config(function($stateProvider, $urlRouterProvider) {
@@ -52,18 +52,32 @@ ionicApp.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('page2', {
     url: '/2',
-    templateUrl: 'page2.html'
+    templateUrl: 'page2.html',
+    //https://gist.github.com/Alexintosh/8e8dd716860c8fdcd08a
+    controller : "SettingsCtrl"
   })
   
   $urlRouterProvider.otherwise("/1");
 });
 
+ionicApp.controller('SettingsCtrl', function($scope){
+  console.log("entered settings...set defaults or current saved values");
+
+  $scope.savesettings= function(){
+      console.log("about to save stuff");
+      //run any time to set values to storage based on inputs
+  }
+
+  $scope.resetcounter = function(){
+      console.log("resetting counter");
+      start = 0;
+      $(".dacount").html(start +"");
+  }
+
+});
 ionicApp.controller('MyCtrl', function($scope , $cordovaVibration, $cordovaMedia, $cordovaDevice){
     
     $scope.toggle = function(){
-          
-      
-
       start++;
       $(".dacount").html(start +"");
       if(start % hi == 0){
@@ -81,18 +95,17 @@ ionicApp.controller('MyCtrl', function($scope , $cordovaVibration, $cordovaMedia
         var trip_interval = setInterval(function(){
             if(trip<2){
               $cordovaVibration.vibrate(500);
+              if(media)
+                media.play();
               trip++;
             }else{
               clearInterval(trip_interval);
               trip=0;
             }
         }, 1000);  
-      }else{//} if(start<hi){
-          
+      }else{//} if(start<hi){      
           $cordovaVibration.vibrate(500);
       }
-      
-
     }
 
 });
