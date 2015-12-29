@@ -60,12 +60,51 @@ ionicApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/1");
 });
 
-ionicApp.controller('SettingsCtrl', function($scope){
-  console.log("entered settings...set defaults or current saved values");
 
+ionicApp.factory('$localstorage', ['$window', function($window) {
+      return {
+        set: function(key, value) {
+          $window.localStorage[key] = value;
+        },
+        get: function(key, defaultValue) {
+          return $window.localStorage[key] || defaultValue || false;
+        },
+        setObject: function(key, value) {
+          $window.localStorage[key] = JSON.stringify(value);
+        },
+        getObject: function(key) {
+          if($window.localStorage[key] != undefined)
+            return JSON.parse($window.localStorage[key] || false );
+    
+          return false;
+        },
+        remove: function(key){
+          $window.localStorage.removeItem(key);
+        },
+        clear: function(){
+          $window.localStorage.clear();
+        }
+      }
+}]);
+
+
+ionicApp.controller('SettingsCtrl', function($scope, $localstorage){
+  console.log("entered settings...set defaults or current saved values");
+  //$localstorage.clear();
+  $(".csize").val($localstorage.get("csize", "3"));
+
+  $(".contentsettings input.csize").change(function(){ 
+    //console.log($(this).val()); 
+    //console.log($(".csize").val());
+    $scope.savesettings();
+    $scope.resetcounter();//reset counter when the cycle size changes
+    hi = $localstorage.get("csize", 3);
+  });
+  
   $scope.savesettings= function(){
       console.log("about to save stuff");
       //run any time to set values to storage based on inputs
+      $localstorage.set("csize", (isNaN($(".csize").val())?"3":$(".csize").val()));
   }
 
   $scope.resetcounter = function(){
@@ -74,9 +113,18 @@ ionicApp.controller('SettingsCtrl', function($scope){
       $(".dacount").html(start +"");
   }
 
+  $scope.$on('$stateChangeStart', 
+             function(event, toState, toParams, fromState, fromParams){ 
+    $scope.savesettings();
+  });
+
 });
-ionicApp.controller('MyCtrl', function($scope , $cordovaVibration, $cordovaMedia, $cordovaDevice){
+
+ionicApp.controller('MyCtrl', function($scope ,$localstorage, $cordovaVibration, $cordovaMedia, $cordovaDevice){  
     
+    //console.log("cycle size" + hi);
+    
+
     $scope.toggle = function(){
       start++;
       $(".dacount").html(start +"");

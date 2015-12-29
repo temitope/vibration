@@ -5,11 +5,12 @@
 .universe{
 	background-image: url('../img/all_religions2.png');
 	background-size: 100% 100%;	
+
 }
 .micontent{
 	height:100%;
 	width:100%;
-	background-color: rgba(255,255,255,0.9);	
+	background-color: rgba(255,255,255,0.95);
 }
 i.setico{
 	font-size:1.75em;

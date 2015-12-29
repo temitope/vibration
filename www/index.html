@@ -38,7 +38,7 @@
               <i class="setico larger ion-settings"></i>
             </button>
           </ion-nav-buttons>
-          <ion-content class="universe">
+          <ion-content class="universe" scroll="false">
             <div class="micontent" on-touch="toggle()">
               <label class="dacount">0</label>
             </div>
@@ -47,7 +47,7 @@
   </script>
     <script id="page2.html" type="text/ng-template">
     <ion-view title="Settings">
-      <ion-content class="">
+      <ion-content class="contentsettings">
     
         <button class="button button-balanced button-full" ng-click="resetcounter()">
           Reset Counter
@@ -56,7 +56,7 @@
 
           <label class="item item-input item-label">
             <span class="input-label">Cycle Size</span>
-            <input type="tel" value="3">
+            <input type="tel" class="csize" value="">
           </label>
 
 
