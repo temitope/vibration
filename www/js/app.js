@@ -92,6 +92,8 @@ ionicApp.controller('SettingsCtrl', function($scope, $localstorage){
   console.log("entered settings...set defaults or current saved values");
   //$localstorage.clear();
   $(".csize").val($localstorage.get("csize", "3"));
+  $(".cyclenotification").val($localstorage.get("cyclenotification", 1));
+  $(".intervalnotification").val($localstorage.get("intervalnotification", 1));
 
   $(".contentsettings input.csize").change(function(){ 
     //console.log($(this).val()); 
@@ -100,11 +102,16 @@ ionicApp.controller('SettingsCtrl', function($scope, $localstorage){
     $scope.resetcounter();//reset counter when the cycle size changes
     hi = $localstorage.get("csize", 3);
   });
+  $(".contentsettings select").change(function(){ 
+    $scope.savesettings();
+  });
   
   $scope.savesettings= function(){
       console.log("about to save stuff");
       //run any time to set values to storage based on inputs
       $localstorage.set("csize", (isNaN($(".csize").val())?"3":$(".csize").val()));
+      $localstorage.set("cyclenotification", $(".cyclenotification").val());
+      $localstorage.set("intervalnotification", $(".intervalnotification").val());
   }
 
   $scope.resetcounter = function(){
