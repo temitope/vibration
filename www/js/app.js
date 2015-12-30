@@ -121,8 +121,8 @@ ionicApp.controller('SettingsCtrl', function($scope, $localstorage){
 });
 
 ionicApp.controller('MyCtrl', function($scope ,$localstorage, $cordovaVibration, $cordovaMedia, $cordovaDevice){  
-    
-    //console.log("cycle size" + hi);
+    hi = $localstorage.get("csize", "3");
+    console.log("cycle size" + hi);
     
 
     $scope.toggle = function(){
