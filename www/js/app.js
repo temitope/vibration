@@ -7,7 +7,7 @@ var ionicApp = angular.module('starter', ['ionic','ngCordova']);
 var media_interval;
 var media_cycle;
 var src_beepintervalnotification= "beep.wav";
-var src_beepcyclenotification= "beeptwice.wav";
+var src_beepcyclenotification= "beepthrice.wav";
 //var src= "beep.wav";
 ionicApp.run(function($ionicPlatform) {
   
