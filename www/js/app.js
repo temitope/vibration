@@ -4,8 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var ionicApp = angular.module('starter', ['ionic','ngCordova']);
-var media;
-var src= "beep.wav";
+var media_interval;
+var media_cycle;
+var src_beepintervalnotification= "beep.wav";
+var src_beepcyclenotification= "beeptwice.wav";
+//var src= "beep.wav";
 ionicApp.run(function($ionicPlatform) {
   
   $ionicPlatform.ready(function() {
@@ -28,11 +31,14 @@ ionicApp.run(function($ionicPlatform) {
         }
     }*/
     if (device.platform == 'Android') {
-        src = '/android_asset/www/' + src;  // Android needs the search path explicitly specified
+        src_beepintervalnotification = '/android_asset/www/' + src_beepintervalnotification;  // Android needs the search path explicitly specified
+        src_beepcyclenotification = '/android_asset/www/' + src_beepcyclenotification;  // Android needs the search path explicitly specified
     }
-    console.log(src);
+    console.log(src_beepcyclenotification);
+    console.log(src_beepintervalnotification);
     try{
-      media = new Media(src, null, null, null);
+      media_interval = new Media(src_beepintervalnotification, null, null, null);
+      media_cycle = new Media(src_beepcyclenotification, null, null, null);
     }catch(ex){
       console.log("error " + ex);
     }
@@ -135,6 +141,7 @@ ionicApp.controller('MyCtrl', function($scope ,$localstorage, $cordovaVibration,
     $scope.toggle = function(){
       start++;
       $(".dacount").html(start +"");
+      
       if(start % hi == 0){
         if(trip>0)
           return;//dont interfere with the alert process if its in the middle of intervals
@@ -142,24 +149,32 @@ ionicApp.controller('MyCtrl', function($scope ,$localstorage, $cordovaVibration,
         //start=0;
         var trip = 0;
 
-        $cordovaVibration.vibrate(500);//vibrate off bat, then 2 more will come
-        if(media)
-          media.play();
-        else
-          console.log("no media var avail");
+        var cnote = $localstorage.get("cyclenotification", 1);
+
+        if(cnote == 1 || cnote ==3)
+          $cordovaVibration.vibrate(400);//vibrate off bat, then 2 more will come
+        
+        if(media_cycle && (cnote ==3 || cnote ==2))
+          media_cycle.play();
+        
         var trip_interval = setInterval(function(){
             if(trip<2){
-              $cordovaVibration.vibrate(500);
-              if(media)
-                media.play();
+              if(cnote == 1 || cnote ==3)
+                $cordovaVibration.vibrate(400);
+              
               trip++;
             }else{
               clearInterval(trip_interval);
               trip=0;
             }
-        }, 1000);  
+        }, 500);  
       }else{//} if(start<hi){      
-          $cordovaVibration.vibrate(500);
+          var inote = $localstorage.get("intervalnotification", 1);
+          if(media_interval && inote==2)
+            media_interval.play();
+
+          if(inote==1)
+            $cordovaVibration.vibrate(400);
       }
     }
 
