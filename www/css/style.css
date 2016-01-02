@@ -20,6 +20,12 @@ i.setico{
 	font-size:3em;
 	margin-right:10px;
 }
+.daintro{
+	padding-top:45%;
+	text-align:center;
+	font-size:larger;
+	font-weight:bolder;
+}
 input[type="tel"]{
 	text-align:right;
 }
