@@ -46,7 +46,7 @@ ionicApp.run(function($ionicPlatform) {
   });
 });
 
-var hi = 5;
+var hi = 7;
 var start = 0;
 
 ionicApp.config(function($stateProvider, $urlRouterProvider) {
