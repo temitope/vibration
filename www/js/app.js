@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var ionicApp = angular.module('starter', ['ionic','ngCordova']);
+var ionicApp = angular.module('starter', ['ionic','ionic.service.core','ngCordova']);
 var media_interval;
 var media_cycle;
 var src_beepintervalnotification= "beepshort.wav";
@@ -42,6 +42,42 @@ ionicApp.run(function($ionicPlatform) {
     }catch(ex){
       console.log("error " + ex);
     }
+
+    //setup user stuff
+    // kick off the platform web client
+    Ionic.io();
+    // this will give you a fresh user or the previously saved 'current user'
+    var user = Ionic.User.current();
+    // if the user doesn't have an id, you'll need to give it one.
+    if (!user.id) {
+      user.id = Ionic.User.anonymousId();
+      // user.id = 'your-custom-user-id';
+    }
+    //persist the user
+    user.save();
+    //PUSH notification stuff
+    var push = new Ionic.Push({
+      "debug": true,
+      "onNotification": function(notification) {
+        var payload = notification.payload;
+        console.log(notification, payload);
+      },
+      "onRegister": function(data) {
+        console.log(data.token);
+      },
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "sound": true
+         },
+         "android": {
+           "iconColor": "#343434"
+         }
+      } 
+    });
+    push.register(function(token) {
+      console.log("Device token:",token.token);
+    });
 
   });
 });
